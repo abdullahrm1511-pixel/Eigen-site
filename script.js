@@ -75,42 +75,42 @@ const labState = {
 
 const styleDetails = {
   "premium": {
-    mood: "premium details, rustige luxe en sterke typografie",
+    mood: "premium details, quiet luxury, and strong typography",
     logo: "PR",
     codes: ["luxury()", "trust()", "launch()"],
   },
   "futuristic": {
-    mood: "futuristische UI, lichte glow en slimme micro-animaties",
+    mood: "futuristic UI, soft glow, and smart micro-animations",
     logo: "FX",
     codes: ["future()", "scan()", "ship()"],
   },
   "dark mode": {
-    mood: "cinematic scroll, grote visuals en een bold intro",
+    mood: "cinematic scroll, big visuals, and a bold intro",
     logo: "DM",
     codes: ["vibe()", "motion()", "build()"],
   },
   "clean business": {
-    mood: "heldere secties, rustige contentblokken en een directe call-to-action",
+    mood: "clear sections, calm content blocks, and a direct call-to-action",
     logo: "CB",
     codes: ["clarity()", "flow()", "lead()"],
   },
   "streetwear": {
-    mood: "editorial layouts, rauwe typografie en drop-energie",
+    mood: "editorial layouts, raw typography, and drop energy",
     logo: "SW",
     codes: ["drop()", "hype()", "sell()"],
   },
   "neon": {
-    mood: "neon contrast, glitch-effecten en een opvallende eerste klik",
+    mood: "neon contrast, glitch effects, and a first click that stands out",
     logo: "NX",
     codes: ["glow()", "pulse()", "drop()"],
   },
   "minimal": {
-    mood: "veel witruimte, heldere opbouw en subtiele beweging",
+    mood: "wide spacing, clear structure, and subtle motion",
     logo: "MN",
     codes: ["clean()", "space()", "focus()"],
   },
   "bold": {
-    mood: "grote typografie, sterke statements en een intro die blijft hangen",
+    mood: "large typography, strong statements, and an intro that sticks",
     logo: "BD",
     codes: ["impact()", "type()", "go()"],
   },
@@ -118,40 +118,40 @@ const styleDetails = {
 
 const randomConcepts = [
   {
-    audience: "random idee",
+    audience: "random idea",
     style: "neon",
     build: "landing page",
-    text: "Een neon landingspagina voor een sneaker drop met glitch-effecten, countdown en snelle checkout-vibe.",
+    text: "A neon landing page for a sneaker drop with glitch effects, a countdown, and a fast checkout vibe.",
   },
   {
     audience: "personal brand",
     style: "premium",
     build: "website",
-    text: "Een premium personal-brand site voor een jonge ondernemer met smooth animations en grote typografie.",
+    text: "A premium personal-brand site for a young entrepreneur with smooth animations and large typography.",
   },
   {
-    audience: "artiest",
+    audience: "artist",
     style: "dark mode",
     build: "portfolio",
-    text: "Een dark portfolio voor een fotograaf met cinematic intro, fullscreen visuals en een stille luxe feel.",
+    text: "A dark portfolio for a photographer with a cinematic intro, fullscreen visuals, and a quiet luxury feel.",
   },
   {
     audience: "student",
     style: "futuristic",
     build: "app idea",
-    text: "Een futuristisch app concept voor een student met swipe-flow, zachte glow en een prototype dat meteen duidelijk voelt.",
+    text: "A futuristic app concept for a student with swipe flow, soft glow, and a prototype that feels instantly clear.",
   },
   {
-    audience: "bedrijf",
+    audience: "business",
     style: "clean business",
     build: "website",
-    text: "Een clean business website voor een bedrijf met heldere diensten, vertrouwen opbouwende secties en een directe aanvraagroute.",
+    text: "A clean business website for a company with clear services, trust-building sections, and a direct request route.",
   },
   {
     audience: "creator",
     style: "streetwear",
-    build: "online profiel",
-    text: "Een streetwear online profiel voor een creator met drop-cards, bold visuals en een social-first layout.",
+    build: "online profile",
+    text: "A streetwear online profile for a creator with drop cards, bold visuals, and a social-first layout.",
   },
 ];
 
@@ -200,7 +200,7 @@ const setActiveLabButton = (group, value) => {
 
 const buildLabConcept = () => {
   const detail = styleDetails[labState.style] || styleDetails["dark mode"];
-  return `Een ${labState.style} ${labState.build} voor een ${labState.audience} met ${detail.mood}.`;
+  return `A ${labState.style} ${labState.build} for a ${labState.audience} with ${detail.mood}.`;
 };
 
 const updateLabPreview = (customText) => {
@@ -247,17 +247,17 @@ surpriseLab?.addEventListener("click", () => {
 });
 
 labBuildButton?.addEventListener("click", () => {
-  const serviceSelect = form?.querySelector('select[name="dienst"]');
-  const messageField = form?.querySelector('textarea[name="bericht"]');
+  const serviceSelect = form?.querySelector('select[name="service"]');
+  const messageField = form?.querySelector('textarea[name="message"]');
 
   if (serviceSelect && labState.build.includes("landing")) {
-    serviceSelect.value = "Landingspagina";
+    serviceSelect.value = "Landing page";
   } else if (serviceSelect) {
-    serviceSelect.value = "Nieuwe website";
+    serviceSelect.value = "New website";
   }
 
   if (messageField && labText) {
-    messageField.value = `Ik wil dit concept laten bouwen: ${labText.textContent}`;
+    messageField.value = `I want this concept built: ${labText.textContent}`;
     form.dispatchEvent(new Event("input"));
   }
 });
@@ -278,13 +278,13 @@ if (!prefersReducedMotion && hasFinePointer) {
 
 const buildMessage = (data) =>
   [
-    "Hoi AR Studio, ik wil graag een digitale ervaring aanvragen.",
+    "Hi AR Studio, I would like to request a digital experience.",
     "",
-    `Naam: ${data.get("naam") || ""}`,
-    `E-mail: ${data.get("email") || ""}`,
-    `Dienst: ${data.get("dienst") || ""}`,
+    `Name: ${data.get("name") || ""}`,
+    `Email: ${data.get("email") || ""}`,
+    `Service: ${data.get("service") || ""}`,
     "",
-    `Bericht: ${data.get("bericht") || ""}`,
+    `Message: ${data.get("message") || ""}`,
   ].join("\n");
 
 form.addEventListener("input", () => {
@@ -296,17 +296,17 @@ form.addEventListener("input", () => {
 
 let formHasSubmitted = false;
 const submitButton = form?.querySelector('button[type="submit"]');
-const originalSubmitText = submitButton?.textContent || "Verstuur aanvraag";
+const originalSubmitText = submitButton?.textContent || "Send request";
 
 form.addEventListener("submit", () => {
   formHasSubmitted = true;
   form.action = `https://formsubmit.co/${OWNER_EMAIL}`;
   status.classList.remove("is-success", "is-error");
-  status.textContent = "Je aanvraag wordt verzonden naar AR Studio...";
+  status.textContent = "Your request is being sent to AR Studio...";
 
   if (submitButton) {
     submitButton.disabled = true;
-    submitButton.textContent = "Versturen...";
+    submitButton.textContent = "Sending...";
   }
 });
 
@@ -317,7 +317,7 @@ formSubmitFrame?.addEventListener("load", () => {
   form.reset();
   whatsappFloat.href = `https://wa.me/${WHATSAPP_NUMBER}`;
   status.classList.add("is-success");
-  status.textContent = "Gelukt. Je aanvraag is verstuurd en komt binnen in mijn inbox.";
+  status.textContent = "Done. Your request has been sent and will land in my inbox.";
 
   if (submitButton) {
     submitButton.disabled = false;

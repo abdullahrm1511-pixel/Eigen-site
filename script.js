@@ -324,3 +324,342 @@ formSubmitFrame?.addEventListener("load", () => {
     submitButton.textContent = originalSubmitText;
   }
 });
+/* StudioLab Live Build Upgrade */
+
+const activateStudioMode = document.querySelector("#activateStudioMode");
+const closeStudioToolbar = document.querySelector("#closeStudioToolbar");
+const motionRange = document.querySelector("#motionRange");
+const glowRange = document.querySelector("#glowRange");
+const layoutButtons = document.querySelectorAll("[data-layout-mode]");
+const heroHeadline = document.querySelector("#heroHeadline");
+const heroText = document.querySelector("#heroText");
+const briefTitle = document.querySelector("#briefTitle");
+const briefFeel = document.querySelector("#briefFeel");
+const briefLayout = document.querySelector("#briefLayout");
+const briefRoute = document.querySelector("#briefRoute");
+
+let studioInteractionStarted = false;
+
+const studioHeroCopies = {
+  business: {
+    website: "A sharp business website built to turn trust into real requests.",
+    "landing page": "A focused landing page made to explain, convince, and convert fast.",
+    "app idea": "A practical app concept that makes your business system feel easy to use.",
+  },
+  artist: {
+    portfolio: "A cinematic portfolio that makes your work feel impossible to ignore.",
+    website: "An artist website with movement, atmosphere, and a memorable first impression.",
+  },
+  creator: {
+    portfolio: "A creator portfolio with motion, proof, and a scroll flow that keeps people watching.",
+    "online profile": "A bold creator profile with social-first energy and a premium digital vibe.",
+  },
+  student: {
+    "app idea": "A futuristic app concept that turns your idea into something people can instantly understand.",
+    portfolio: "A sharp student portfolio that makes projects, skills, and ambition feel professional.",
+  },
+  "personal brand": {
+    website: "A personal-brand website that turns your story, proof, and offer into one strong presence.",
+    "online profile": "A premium online profile that makes your name feel like a brand.",
+  },
+  "random idea": {
+    "landing page": "A wild landing page that gives even a random idea a serious launch feeling.",
+  },
+};
+
+const studioSlugify = (value) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+const triggerSiteRebuild = () => {
+  if (typeof prefersReducedMotion !== "undefined" && prefersReducedMotion) return;
+
+  document.body.classList.remove("is-rebuilding-site");
+  void document.body.offsetWidth;
+  document.body.classList.add("is-rebuilding-site");
+};
+
+const updateGlobalStudioLook = () => {
+  if (typeof labState === "undefined") return;
+
+  const styleSlug = studioSlugify(labState.style);
+  const audienceSlug = studioSlugify(labState.audience);
+  const buildSlug = studioSlugify(labState.build);
+
+  document.body.dataset.vibe = styleSlug;
+  document.body.dataset.audience = audienceSlug;
+  document.body.dataset.build = buildSlug;
+
+  const headline =
+    studioHeroCopies[labState.audience]?.[labState.build] ||
+    `A ${labState.style} ${labState.build} that makes your ${labState.audience} idea feel ready to launch.`;
+
+  if (!studioInteractionStarted && !document.body.classList.contains("studio-mode")) return;
+
+  if (heroHeadline) {
+    heroHeadline.textContent = headline;
+  }
+
+  if (heroText) {
+    heroText.textContent = `StudioLab is previewing a ${labState.style} ${labState.build} for a ${labState.audience}. The full page now adapts in real time, from color and motion to the request flow.`;
+  }
+};
+
+const updateStudioBrief = () => {
+  if (
+    typeof labState === "undefined" ||
+    typeof styleDetails === "undefined" ||
+    !briefTitle ||
+    !briefFeel ||
+    !briefLayout ||
+    !briefRoute
+  ) {
+    return;
+  }
+
+  const detail = styleDetails[labState.style] || styleDetails["dark mode"];
+
+  briefTitle.textContent = `${labState.style} ${labState.build} for a ${labState.audience}`;
+  briefFeel.textContent = detail.mood;
+  briefLayout.textContent = `A ${labState.build} with animated sections, live UI layers, and mobile-first flow.`;
+  briefRoute.textContent = `${labState.audience} intro → visual proof → interactive preview → direct request`;
+};
+
+const syncStudioRequest = () => {
+  if (typeof form === "undefined" || typeof labState === "undefined") return;
+
+  const serviceSelect = form?.querySelector('select[name="service"]');
+  const messageField = form?.querySelector('textarea[name="message"]');
+
+  if (serviceSelect) {
+    if (labState.build.includes("landing")) {
+      serviceSelect.value = "Landing page";
+    } else if (labState.build.includes("restyle")) {
+      serviceSelect.value = "Website restyle";
+    } else {
+      serviceSelect.value = "New website";
+    }
+  }
+
+  if (messageField && typeof labText !== "undefined" && labText) {
+    messageField.value = `StudioLab direction: ${labText.textContent}
+
+Audience: ${labState.audience}
+Vibe: ${labState.style}
+Build: ${labState.build}
+
+I want the website to feel interactive, premium and custom.`;
+
+    form?.dispatchEvent(new Event("input"));
+  }
+};
+
+const studioRefresh = () => {
+  updateGlobalStudioLook();
+  updateStudioBrief();
+  triggerSiteRebuild();
+};
+
+document.querySelectorAll("[data-lab-choice]").forEach((button) => {
+  button.addEventListener("click", () => {
+    studioInteractionStarted = true;
+
+    window.setTimeout(() => {
+      studioRefresh();
+
+      if (document.body.classList.contains("studio-mode")) {
+        syncStudioRequest();
+      }
+    }, 10);
+  });
+});
+
+document.querySelector("#surpriseLab")?.addEventListener("click", () => {
+  studioInteractionStarted = true;
+
+  window.setTimeout(() => {
+    studioRefresh();
+
+    if (document.body.classList.contains("studio-mode")) {
+      syncStudioRequest();
+    }
+  }, 10);
+});
+
+document.querySelector("#labBuildButton")?.addEventListener("click", () => {
+  syncStudioRequest();
+});
+
+activateStudioMode?.addEventListener("click", () => {
+  studioInteractionStarted = true;
+  document.body.classList.add("studio-mode");
+  studioRefresh();
+  syncStudioRequest();
+});
+
+closeStudioToolbar?.addEventListener("click", () => {
+  document.body.classList.remove("studio-mode");
+});
+
+motionRange?.addEventListener("input", () => {
+  document.body.style.setProperty("--studio-motion", motionRange.value);
+});
+
+glowRange?.addEventListener("input", () => {
+  document.body.style.setProperty("--studio-glow", `${glowRange.value / 100}`);
+});
+
+layoutButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    document.body.dataset.layoutMode = button.dataset.layoutMode;
+
+    layoutButtons.forEach((item) => {
+      item.classList.toggle("is-active", item === button);
+    });
+
+    triggerSiteRebuild();
+  });
+});
+
+studioRefresh();
+
+/* ================================
+   MEGA THEME REACTOR
+================================ */
+
+const megaThemeButtons = document.querySelectorAll("[data-theme-choice]");
+const activeThemeName = document.querySelector("#activeThemeName");
+const randomThemeButton = document.querySelector("#randomTheme");
+const cycleThemeButton = document.querySelector("#cycleTheme");
+const insaneModeButton = document.querySelector("#insaneMode");
+
+const megaThemes = [
+  "amber",
+  "cyber",
+  "luxe",
+  "neon",
+  "glacier",
+  "inferno",
+  "toxic",
+  "candy",
+  "matrix",
+  "midnight",
+  "royal",
+  "mono",
+];
+
+const themeLabels = {
+  amber: "Amber",
+  cyber: "Cyber",
+  luxe: "Luxe",
+  neon: "Neon",
+  glacier: "Glacier",
+  inferno: "Inferno",
+  toxic: "Toxic",
+  candy: "Candy",
+  matrix: "Matrix",
+  midnight: "Midnight",
+  royal: "Royal",
+  mono: "Mono",
+};
+
+let themeCycleTimer = null;
+let currentThemeIndex = 0;
+
+const triggerThemeBurst = () => {
+  if (typeof prefersReducedMotion !== "undefined" && prefersReducedMotion) return;
+
+  document.body.classList.remove("theme-bursting");
+  void document.body.offsetWidth;
+  document.body.classList.add("theme-bursting");
+
+  window.setTimeout(() => {
+    document.body.classList.remove("theme-bursting");
+  }, 820);
+};
+
+const setMegaTheme = (theme) => {
+  if (!megaThemes.includes(theme)) return;
+
+  currentThemeIndex = megaThemes.indexOf(theme);
+
+  if (theme === "amber") {
+    document.body.dataset.theme = "";
+  } else {
+    document.body.dataset.theme = theme;
+  }
+
+  megaThemeButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.themeChoice === theme);
+  });
+
+  if (activeThemeName) {
+    activeThemeName.textContent = themeLabels[theme] || theme;
+  }
+
+  triggerThemeBurst();
+
+  if (document.body.classList.contains("studio-mode")) {
+    document.body.dataset.vibe = theme;
+  }
+};
+
+megaThemeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setMegaTheme(button.dataset.themeChoice);
+  });
+});
+
+randomThemeButton?.addEventListener("click", () => {
+  const nextTheme = megaThemes[Math.floor(Math.random() * megaThemes.length)];
+  setMegaTheme(nextTheme);
+});
+
+cycleThemeButton?.addEventListener("click", () => {
+  const isCycling = Boolean(themeCycleTimer);
+
+  if (isCycling) {
+    window.clearInterval(themeCycleTimer);
+    themeCycleTimer = null;
+    cycleThemeButton.classList.remove("is-active");
+    cycleThemeButton.textContent = "Cycle";
+    return;
+  }
+
+  cycleThemeButton.classList.add("is-active");
+  cycleThemeButton.textContent = "Stop";
+
+  themeCycleTimer = window.setInterval(() => {
+    currentThemeIndex = (currentThemeIndex + 1) % megaThemes.length;
+    setMegaTheme(megaThemes[currentThemeIndex]);
+  }, 1600);
+});
+
+insaneModeButton?.addEventListener("click", () => {
+  document.body.classList.toggle("insane-mode");
+  insaneModeButton.classList.toggle("is-active", document.body.classList.contains("insane-mode"));
+
+  if (document.body.classList.contains("insane-mode")) {
+    triggerThemeBurst();
+  }
+});
+
+/* Keyboard shortcut: press T for random theme, I for insane mode */
+document.addEventListener("keydown", (event) => {
+  if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLSelectElement) {
+    return;
+  }
+
+  if (event.key.toLowerCase() === "t") {
+    const nextTheme = megaThemes[Math.floor(Math.random() * megaThemes.length)];
+    setMegaTheme(nextTheme);
+  }
+
+  if (event.key.toLowerCase() === "i") {
+    insaneModeButton?.click();
+  }
+});
+
+setMegaTheme("amber");

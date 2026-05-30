@@ -979,6 +979,7 @@ h3 {
 }
 
 .live-stage::before {
+  z-index: 1;
   position: absolute;
   inset: -30% auto -30% -22%;
   width: 45%;
@@ -986,6 +987,198 @@ h3 {
   content: "";
   transform: rotate(12deg);
   animation: labSweep 4s ease-in-out infinite;
+}
+
+.live-stage::after {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 7px),
+    radial-gradient(circle at var(--pulse-x, 72%) var(--pulse-y, 34%), rgba(255, 255, 255, 0.18), transparent 24%);
+  content: "";
+  mix-blend-mode: screen;
+  opacity: 0.22;
+  pointer-events: none;
+  animation: signalNoise 1.8s steps(2, end) infinite;
+}
+
+.lab-chaos,
+.lab-signal,
+.lab-hud,
+.lab-wave,
+.live-logo,
+.live-lines,
+.live-grid,
+.live-code {
+  position: relative;
+  z-index: 2;
+}
+
+.lab-chaos {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.lab-chaos span {
+  position: absolute;
+  width: var(--size, 10px);
+  height: var(--size, 10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 22px currentColor;
+  color: var(--accent);
+  opacity: 0.72;
+  animation: particleRush var(--speed, 4.4s) linear infinite;
+}
+
+.lab-chaos span:nth-child(1) {
+  --size: 9px;
+  --speed: 3.7s;
+  left: 9%;
+  top: 78%;
+}
+
+.lab-chaos span:nth-child(2) {
+  --size: 15px;
+  --speed: 5.1s;
+  left: 22%;
+  top: 24%;
+  animation-delay: -1.4s;
+}
+
+.lab-chaos span:nth-child(3) {
+  --size: 7px;
+  --speed: 3.2s;
+  left: 42%;
+  top: 86%;
+  animation-delay: -2.3s;
+}
+
+.lab-chaos span:nth-child(4) {
+  --size: 18px;
+  --speed: 6s;
+  left: 66%;
+  top: 18%;
+  animation-delay: -0.7s;
+}
+
+.lab-chaos span:nth-child(5) {
+  --size: 11px;
+  --speed: 4.8s;
+  left: 82%;
+  top: 72%;
+  animation-delay: -3s;
+}
+
+.lab-chaos span:nth-child(6) {
+  --size: 6px;
+  --speed: 2.9s;
+  left: 58%;
+  top: 46%;
+  animation-delay: -1.9s;
+}
+
+.lab-chaos span:nth-child(7) {
+  --size: 13px;
+  --speed: 5.5s;
+  left: 14%;
+  top: 48%;
+  animation-delay: -4s;
+}
+
+.lab-chaos span:nth-child(8) {
+  --size: 8px;
+  --speed: 3.9s;
+  left: 92%;
+  top: 34%;
+  animation-delay: -2.7s;
+}
+
+.lab-signal {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  left: 140px;
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+  pointer-events: none;
+}
+
+.lab-signal span,
+.lab-hud {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(7, 11, 13, 0.48);
+  color: rgba(255, 255, 255, 0.76);
+  font-family: var(--heading);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+}
+
+.lab-signal span {
+  padding: 6px 9px;
+  animation: glitchTag 2.8s steps(2, end) infinite;
+}
+
+.lab-signal span:nth-child(2) {
+  animation-delay: -0.8s;
+}
+
+.lab-signal span:nth-child(3) {
+  animation-delay: -1.6s;
+}
+
+.lab-hud {
+  position: absolute;
+  left: 24px;
+  bottom: 20px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: calc(100% - 190px);
+  padding: 8px 10px;
+  border-radius: 12px;
+  animation: hudFloat 3.6s ease-in-out infinite;
+}
+
+.lab-hud span {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #14100a;
+}
+
+.lab-hud strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lab-wave {
+  position: absolute;
+  inset: auto -18% 26% -18%;
+  z-index: 1;
+  height: 86px;
+  background:
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent),
+    repeating-linear-gradient(90deg, transparent 0 16px, rgba(255, 255, 255, 0.12) 17px 18px);
+  opacity: 0.32;
+  transform: skewY(-7deg);
+  animation: waveSlide 3.2s linear infinite;
 }
 
 .live-logo {
@@ -1001,7 +1194,7 @@ h3 {
   font-size: 2rem;
   font-weight: 800;
   box-shadow: var(--glow);
-  animation: liveLogoPulse 3.8s ease-in-out infinite;
+  animation: liveLogoPulse 3.8s ease-in-out infinite, logoGlitch 5.4s steps(2, end) infinite;
 }
 
 .live-lines {
@@ -1020,14 +1213,18 @@ h3 {
 
 .live-lines span {
   height: 12px;
+  overflow: hidden;
+  animation: dataFlicker 2.4s steps(2, end) infinite;
 }
 
 .live-lines span:nth-child(2) {
   width: 72%;
+  animation-delay: -0.7s;
 }
 
 .live-lines span:nth-child(3) {
   width: 48%;
+  animation-delay: -1.3s;
 }
 
 .live-grid {
@@ -1039,7 +1236,9 @@ h3 {
 .live-grid span {
   min-height: 58px;
   border-radius: 12px;
-  animation: cardPulse 4s ease-in-out infinite;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 28px rgba(216, 137, 47, 0.08);
+  transform-origin: center;
+  animation: cardPulse 4s ease-in-out infinite, tileFlip 7s ease-in-out infinite;
 }
 
 .live-grid span:nth-child(2) {
@@ -1068,6 +1267,25 @@ h3 {
   color: rgba(255, 255, 255, 0.76);
   font-family: var(--heading);
   font-size: 0.76rem;
+  animation: codeJitter 3.3s steps(2, end) infinite;
+}
+
+.live-code code:nth-child(2) {
+  animation-delay: -0.9s;
+}
+
+.live-code code:nth-child(3) {
+  animation-delay: -1.8s;
+}
+
+.live-stage.is-rebuilding .live-logo,
+.live-stage.is-rebuilding .live-grid span,
+.live-stage.is-rebuilding .lab-hud {
+  animation-duration: 620ms, 620ms;
+}
+
+.live-stage.is-rebuilding::after {
+  animation: signalNoise 260ms steps(2, end) 4;
 }
 
 .live-panel p {
@@ -1695,6 +1913,140 @@ textarea:focus {
   }
 }
 
+@keyframes signalNoise {
+  0%,
+  100% {
+    opacity: 0.16;
+    transform: translateY(0);
+  }
+  35% {
+    opacity: 0.28;
+    transform: translateY(-1px);
+  }
+  68% {
+    opacity: 0.2;
+    transform: translateY(2px);
+  }
+}
+
+@keyframes particleRush {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 38px, 0) scale(0.4);
+  }
+  18% {
+    opacity: 0.82;
+  }
+  62% {
+    opacity: 0.55;
+    transform: translate3d(-26px, -92px, 0) scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(38px, -190px, 0) scale(0.72);
+  }
+}
+
+@keyframes glitchTag {
+  0%,
+  88%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.74;
+  }
+  90% {
+    transform: translate(-7px, 2px);
+    opacity: 1;
+  }
+  92% {
+    transform: translate(8px, -1px);
+  }
+  94% {
+    transform: translate(-2px, 0);
+  }
+}
+
+@keyframes hudFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(10px, -8px, 0);
+  }
+}
+
+@keyframes waveSlide {
+  from {
+    transform: translateX(-18%) skewY(-7deg);
+  }
+  to {
+    transform: translateX(18%) skewY(-7deg);
+  }
+}
+
+@keyframes logoGlitch {
+  0%,
+  86%,
+  100% {
+    filter: none;
+  }
+  88% {
+    filter: drop-shadow(7px 0 0 rgba(53, 215, 255, 0.7)) drop-shadow(-7px 0 0 rgba(255, 46, 213, 0.55));
+  }
+  91% {
+    filter: drop-shadow(-4px 0 0 rgba(53, 215, 255, 0.5)) drop-shadow(5px 0 0 rgba(255, 46, 213, 0.42));
+  }
+}
+
+@keyframes dataFlicker {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: scaleX(1);
+  }
+  48% {
+    opacity: 0.34;
+    transform: scaleX(0.82);
+  }
+  52% {
+    opacity: 0.92;
+    transform: scaleX(1.04);
+  }
+}
+
+@keyframes tileFlip {
+  0%,
+  100% {
+    filter: saturate(1);
+    transform: translateY(0) rotateX(0deg);
+  }
+  44% {
+    filter: saturate(1.6);
+  }
+  52% {
+    filter: saturate(2);
+    transform: translateY(-10px) rotateX(12deg);
+  }
+}
+
+@keyframes codeJitter {
+  0%,
+  80%,
+  100% {
+    transform: translateX(0);
+  }
+  84% {
+    transform: translateX(7px);
+  }
+  88% {
+    transform: translateX(-5px);
+  }
+  92% {
+    transform: translateX(2px);
+  }
+}
+
 @keyframes sparkPop {
   0% {
     opacity: 0.9;
@@ -1782,6 +2134,19 @@ textarea:focus {
   .live-stage {
     min-height: 300px;
   }
+
+  .lab-signal {
+    left: 18px;
+    justify-content: flex-start;
+  }
+
+  .lab-signal span {
+    font-size: 0.56rem;
+  }
+
+  .lab-hud {
+    max-width: calc(100% - 36px);
+  }
 }
 
 @media (max-width: 640px) {
@@ -1805,6 +2170,30 @@ textarea:focus {
 
   .hero {
     min-height: 96vh;
+  }
+
+  .live-stage {
+    min-height: 340px;
+    padding: 20px;
+  }
+
+  .live-logo {
+    width: 78px;
+    height: 78px;
+    font-size: 1.55rem;
+  }
+
+  .lab-signal {
+    right: 14px;
+    left: 112px;
+  }
+
+  .lab-signal span:nth-child(3) {
+    display: none;
+  }
+
+  .lab-wave {
+    bottom: 34%;
   }
 
   .hero-content {
@@ -1921,6 +2310,14 @@ textarea:focus {
   .browser-card,
   .live-orbit,
   .live-logo,
+  .lab-chaos span,
+  .lab-signal span,
+  .lab-hud,
+  .lab-wave,
+  .live-stage::after,
+  .live-lines span,
+  .live-grid span,
+  .live-code code,
   .hero-image,
   .hero-proof span,
   .whatsapp-float {

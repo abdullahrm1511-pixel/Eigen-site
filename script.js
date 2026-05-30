@@ -207,12 +207,16 @@ const updateLabPreview = (customText) => {
 
   const detail = styleDetails[labState.style] || styleDetails["dark mode"];
 
+  labStage.classList.remove("is-rebuilding");
   liveVisual.dataset.style = labState.style.replace(/\s+/g, "-");
   labTitle.textContent = `${labState.style} ${labState.build}`;
   labLogo.textContent = detail.logo;
   labText.textContent = customText || buildLabConcept();
   labStage.querySelectorAll(".live-code code").forEach((code, index) => {
     code.textContent = detail.codes[index] || detail.codes[0];
+  });
+  window.requestAnimationFrame(() => {
+    labStage.classList.add("is-rebuilding");
   });
 };
 

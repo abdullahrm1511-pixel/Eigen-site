@@ -23,7 +23,7 @@ if (prefersReducedMotion || !("IntersectionObserver" in window)) {
   revealItems.forEach((item) => observer.observe(item));
 }
 
-const interactiveCards = document.querySelectorAll(".step-card, .service-card, .design-board");
+const interactiveCards = document.querySelectorAll(".step-card, .service-card, .design-board, .live-panel");
 
 if (!prefersReducedMotion && hasFinePointer) {
   interactiveCards.forEach((card) => {
@@ -56,6 +56,39 @@ const form = document.querySelector("#requestForm");
 const status = document.querySelector("#formStatus");
 const whatsappFloat = document.querySelector(".whatsapp-float");
 const magneticButtons = document.querySelectorAll(".button, .header-cta, .whatsapp-float");
+const themeButtons = document.querySelectorAll("[data-theme-choice]");
+const labButtons = document.querySelectorAll("[data-lab-mode]");
+const liveVisual = document.querySelector(".live-visual");
+const labTitle = document.querySelector("#labTitle");
+const labText = document.querySelector("#labText");
+const labStage = document.querySelector("#labStage");
+
+const labModes = {
+  websites: {
+    title: "Premium website",
+    text: "Een high-end landingpage met glow, glass en conversiegericht contact.",
+    logo: "AR",
+    codes: ["hero()", "convert()", "launch()"],
+  },
+  backend: {
+    title: "Backend systeem",
+    text: "Een strak dashboardgevoel met workflows, data en beheer achter de schermen.",
+    logo: "{ }",
+    codes: ["api()", "auth()", "sync()"],
+  },
+  logos: {
+    title: "Logo identity",
+    text: "Een merkbeeld dat direct herkenbaar voelt en doorloopt in website, app en socials.",
+    logo: "A",
+    codes: ["mark()", "type()", "brand()"],
+  },
+  apps: {
+    title: "App concept",
+    text: "Mobile-first schermen met een klikbaar productgevoel voordat de app gebouwd is.",
+    logo: "UI",
+    codes: ["tap()", "flow()", "ship()"],
+  },
+};
 
 const updateScrollProgress = () => {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
@@ -80,6 +113,45 @@ if (!prefersReducedMotion && hasFinePointer) {
     button.addEventListener("pointerleave", () => {
       button.style.transform = "";
     });
+  });
+}
+
+themeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const theme = button.dataset.themeChoice;
+
+    document.body.dataset.theme = theme === "amber" ? "" : theme;
+    themeButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+  });
+});
+
+labButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const mode = button.dataset.labMode;
+    const content = labModes[mode];
+
+    if (!content || !liveVisual || !labTitle || !labText || !labStage) return;
+
+    liveVisual.dataset.mode = mode;
+    labTitle.textContent = content.title;
+    labText.textContent = content.text;
+    labStage.querySelector(".live-logo").textContent = content.logo;
+    labStage.querySelectorAll(".live-code code").forEach((code, index) => {
+      code.textContent = content.codes[index] || content.codes[0];
+    });
+    labButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+  });
+});
+
+if (!prefersReducedMotion && hasFinePointer) {
+  document.addEventListener("click", (event) => {
+    const spark = document.createElement("span");
+
+    spark.className = "click-spark";
+    spark.style.left = `${event.clientX}px`;
+    spark.style.top = `${event.clientY}px`;
+    document.body.appendChild(spark);
+    window.setTimeout(() => spark.remove(), 560);
   });
 }
 

@@ -57,38 +57,102 @@ const status = document.querySelector("#formStatus");
 const whatsappFloat = document.querySelector(".whatsapp-float");
 const magneticButtons = document.querySelectorAll(".button, .header-cta, .whatsapp-float");
 const themeButtons = document.querySelectorAll("[data-theme-choice]");
-const labButtons = document.querySelectorAll("[data-lab-mode]");
+const labButtons = document.querySelectorAll("[data-lab-choice]");
 const liveVisual = document.querySelector(".live-visual");
 const labTitle = document.querySelector("#labTitle");
 const labText = document.querySelector("#labText");
 const labStage = document.querySelector("#labStage");
+const labLogo = document.querySelector("#labLogo");
+const surpriseLab = document.querySelector("#surpriseLab");
+const labBuildButton = document.querySelector("#labBuildButton");
 
-const labModes = {
-  websites: {
-    title: "Premium website",
-    text: "Een high-end landingpage met glow, glass en conversiegericht contact.",
-    logo: "AR",
-    codes: ["hero()", "convert()", "launch()"],
+const labState = {
+  audience: "creator",
+  style: "dark mode",
+  build: "portfolio",
+};
+
+const styleDetails = {
+  "premium": {
+    mood: "premium details, rustige luxe en sterke typografie",
+    logo: "PR",
+    codes: ["luxury()", "trust()", "launch()"],
   },
-  backend: {
-    title: "Backend systeem",
-    text: "Een strak dashboardgevoel met workflows, data en beheer achter de schermen.",
-    logo: "{ }",
-    codes: ["api()", "auth()", "sync()"],
+  "futuristic": {
+    mood: "futuristische UI, lichte glow en slimme micro-animaties",
+    logo: "FX",
+    codes: ["future()", "scan()", "ship()"],
   },
-  logos: {
-    title: "Logo identity",
-    text: "Een merkbeeld dat direct herkenbaar voelt en doorloopt in website, app en socials.",
-    logo: "A",
-    codes: ["mark()", "type()", "brand()"],
+  "dark mode": {
+    mood: "cinematic scroll, grote visuals en een bold intro",
+    logo: "DM",
+    codes: ["vibe()", "motion()", "build()"],
   },
-  apps: {
-    title: "App concept",
-    text: "Mobile-first schermen met een klikbaar productgevoel voordat de app gebouwd is.",
-    logo: "UI",
-    codes: ["tap()", "flow()", "ship()"],
+  "clean business": {
+    mood: "heldere secties, rustige contentblokken en een directe call-to-action",
+    logo: "CB",
+    codes: ["clarity()", "flow()", "lead()"],
+  },
+  "streetwear": {
+    mood: "editorial layouts, rauwe typografie en drop-energie",
+    logo: "SW",
+    codes: ["drop()", "hype()", "sell()"],
+  },
+  "neon": {
+    mood: "neon contrast, glitch-effecten en een opvallende eerste klik",
+    logo: "NX",
+    codes: ["glow()", "pulse()", "drop()"],
+  },
+  "minimal": {
+    mood: "veel witruimte, heldere opbouw en subtiele beweging",
+    logo: "MN",
+    codes: ["clean()", "space()", "focus()"],
+  },
+  "bold": {
+    mood: "grote typografie, sterke statements en een intro die blijft hangen",
+    logo: "BD",
+    codes: ["impact()", "type()", "go()"],
   },
 };
+
+const randomConcepts = [
+  {
+    audience: "random idee",
+    style: "neon",
+    build: "landing page",
+    text: "Een neon landingspagina voor een sneaker drop met glitch-effecten, countdown en snelle checkout-vibe.",
+  },
+  {
+    audience: "personal brand",
+    style: "premium",
+    build: "website",
+    text: "Een premium personal-brand site voor een jonge ondernemer met smooth animations en grote typografie.",
+  },
+  {
+    audience: "artiest",
+    style: "dark mode",
+    build: "portfolio",
+    text: "Een dark portfolio voor een fotograaf met cinematic intro, fullscreen visuals en een stille luxe feel.",
+  },
+  {
+    audience: "student",
+    style: "futuristic",
+    build: "app idea",
+    text: "Een futuristisch app concept voor een student met swipe-flow, zachte glow en een prototype dat meteen duidelijk voelt.",
+  },
+  {
+    audience: "bedrijf",
+    style: "clean business",
+    build: "website",
+    text: "Een clean business website voor een bedrijf met heldere diensten, vertrouwen opbouwende secties en een directe aanvraagroute.",
+  },
+  {
+    audience: "creator",
+    style: "streetwear",
+    build: "online profiel",
+    text: "Een streetwear online profiel voor een creator met drop-cards, bold visuals en een social-first layout.",
+  },
+];
 
 const updateScrollProgress = () => {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
@@ -125,23 +189,75 @@ themeButtons.forEach((button) => {
   });
 });
 
+const setActiveLabButton = (group, value) => {
+  labButtons.forEach((button) => {
+    if (button.dataset.labChoice === group) {
+      button.classList.toggle("is-active", button.dataset.value === value);
+    }
+  });
+};
+
+const buildLabConcept = () => {
+  const detail = styleDetails[labState.style] || styleDetails["dark mode"];
+  return `Een ${labState.style} ${labState.build} voor een ${labState.audience} met ${detail.mood}.`;
+};
+
+const updateLabPreview = (customText) => {
+  if (!liveVisual || !labTitle || !labText || !labStage || !labLogo) return;
+
+  const detail = styleDetails[labState.style] || styleDetails["dark mode"];
+
+  liveVisual.dataset.style = labState.style.replace(/\s+/g, "-");
+  labTitle.textContent = `${labState.style} ${labState.build}`;
+  labLogo.textContent = detail.logo;
+  labText.textContent = customText || buildLabConcept();
+  labStage.querySelectorAll(".live-code code").forEach((code, index) => {
+    code.textContent = detail.codes[index] || detail.codes[0];
+  });
+};
+
 labButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    const mode = button.dataset.labMode;
-    const content = labModes[mode];
+    const group = button.dataset.labChoice;
+    const value = button.dataset.value;
 
-    if (!content || !liveVisual || !labTitle || !labText || !labStage) return;
+    if (!group || !value) return;
 
-    liveVisual.dataset.mode = mode;
-    labTitle.textContent = content.title;
-    labText.textContent = content.text;
-    labStage.querySelector(".live-logo").textContent = content.logo;
-    labStage.querySelectorAll(".live-code code").forEach((code, index) => {
-      code.textContent = content.codes[index] || content.codes[0];
-    });
-    labButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+    labState[group] = value;
+    setActiveLabButton(group, value);
+    updateLabPreview();
   });
 });
+
+surpriseLab?.addEventListener("click", () => {
+  const concept = randomConcepts[Math.floor(Math.random() * randomConcepts.length)];
+
+  labState.audience = concept.audience;
+  labState.style = concept.style;
+  labState.build = concept.build;
+  setActiveLabButton("audience", concept.audience);
+  setActiveLabButton("style", concept.style);
+  setActiveLabButton("build", concept.build);
+  updateLabPreview(concept.text);
+});
+
+labBuildButton?.addEventListener("click", () => {
+  const serviceSelect = form?.querySelector('select[name="dienst"]');
+  const messageField = form?.querySelector('textarea[name="bericht"]');
+
+  if (serviceSelect && labState.build.includes("landing")) {
+    serviceSelect.value = "Landingspagina";
+  } else if (serviceSelect) {
+    serviceSelect.value = "Nieuwe website";
+  }
+
+  if (messageField && labText) {
+    messageField.value = `Ik wil dit concept laten bouwen: ${labText.textContent}`;
+    form.dispatchEvent(new Event("input"));
+  }
+});
+
+updateLabPreview();
 
 if (!prefersReducedMotion && hasFinePointer) {
   document.addEventListener("click", (event) => {
@@ -157,7 +273,7 @@ if (!prefersReducedMotion && hasFinePointer) {
 
 const buildMessage = (data) =>
   [
-    "Hoi AR Studio Webdesign, ik wil graag een website aanvragen.",
+    "Hoi AR Studio, ik wil graag een digitale ervaring aanvragen.",
     "",
     `Naam: ${data.get("naam") || ""}`,
     `E-mail: ${data.get("email") || ""}`,
@@ -175,5 +291,5 @@ form.addEventListener("input", () => {
 
 form.addEventListener("submit", (event) => {
   form.action = `https://formsubmit.co/${OWNER_EMAIL}`;
-  status.textContent = "Je aanvraag wordt verzonden naar AR Studio Webdesign...";
+  status.textContent = "Je aanvraag wordt verzonden naar AR Studio...";
 });

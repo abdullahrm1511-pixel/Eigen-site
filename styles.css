@@ -1636,10 +1636,32 @@ textarea:focus {
   cursor: pointer;
 }
 
+.form-button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
 .form-status {
   min-height: 24px;
   margin: 0;
   font-size: 0.92rem;
+}
+
+.form-status.is-success {
+  color: #89f0b5;
+}
+
+.form-status.is-error {
+  color: #ffb3a7;
+}
+
+.form-submit-frame {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .site-footer {

@@ -54,6 +54,7 @@ if (!prefersReducedMotion && hasFinePointer) {
 
 const form = document.querySelector("#requestForm");
 const status = document.querySelector("#formStatus");
+const formSubmitFrame = document.querySelector('iframe[name="formSubmitFrame"]');
 const whatsappFloat = document.querySelector(".whatsapp-float");
 const magneticButtons = document.querySelectorAll(".button, .header-cta, .whatsapp-float");
 const themeButtons = document.querySelectorAll("[data-theme-choice]");
@@ -293,7 +294,33 @@ form.addEventListener("input", () => {
   whatsappFloat.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
 });
 
-form.addEventListener("submit", (event) => {
+let formHasSubmitted = false;
+const submitButton = form?.querySelector('button[type="submit"]');
+const originalSubmitText = submitButton?.textContent || "Verstuur aanvraag";
+
+form.addEventListener("submit", () => {
+  formHasSubmitted = true;
   form.action = `https://formsubmit.co/${OWNER_EMAIL}`;
+  status.classList.remove("is-success", "is-error");
   status.textContent = "Je aanvraag wordt verzonden naar AR Studio...";
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Versturen...";
+  }
+});
+
+formSubmitFrame?.addEventListener("load", () => {
+  if (!formHasSubmitted) return;
+
+  formHasSubmitted = false;
+  form.reset();
+  whatsappFloat.href = `https://wa.me/${WHATSAPP_NUMBER}`;
+  status.classList.add("is-success");
+  status.textContent = "Gelukt. Je aanvraag is verstuurd en komt binnen in mijn inbox.";
+
+  if (submitButton) {
+    submitButton.disabled = false;
+    submitButton.textContent = originalSubmitText;
+  }
 });

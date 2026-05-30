@@ -40,6 +40,7 @@
       <nav class="nav-links" aria-label="Main navigation">
         <a href="#aanpak">Approach</a>
         <a href="#diensten">Services</a>
+        <a href="#packages">Packages</a>
         <a href="#studio-lab">Studio lab</a>
         <a href="#resultaat">Result</a>
         <a href="#contact">Contact</a>
@@ -61,16 +62,16 @@
         <div class="hero-content" data-reveal>
           <p class="eyebrow">AR Studio</p>
 
-          <h1 id="heroHeadline">Premium websites that feel like your best first impression.</h1>
+          <h1 id="heroHeadline">Professional websites and systems for a stronger online presence.</h1>
 
           <p class="hero-text" id="heroText">
-            I design modern, fast, and credible websites that make your offer clear and guide visitors toward
-            contact. From the first concept to the request form, everything feels sharp, quick, and intentional.
+            AR Studio builds websites, backends, logos, and app concepts for entrepreneurs who want to look
+            professional online. Clear structure, premium visuals, and a direct path from visitor to request.
           </p>
 
           <div class="hero-actions">
-            <a class="button button-primary premium-button" href="#contact">Start your request</a>
-            <a class="button button-secondary premium-button" href="#diensten">View options</a>
+            <a class="button button-primary premium-button" href="#packages">View packages</a>
+            <a class="button button-secondary premium-button" href="#studio-lab">Try StudioLab</a>
             <a class="button button-whatsapp premium-button" href="https://wa.me/31648363929" target="_blank" rel="noreferrer">
               WhatsApp now
             </a>
@@ -142,8 +143,8 @@
 
       <section class="kinetic-section">
         <div class="kinetic-copy" data-reveal>
-          <p class="eyebrow">Design that feels like modern content</p>
-          <h2>Fast motion, sharp layers, and a premium first impression.</h2>
+          <p class="eyebrow">Modern digital presence</p>
+          <h2>Clean structure, thoughtful motion, and a premium first impression.</h2>
         </div>
 
         <div class="kinetic-grid" aria-label="Animation elements">
@@ -213,7 +214,7 @@
       <section class="section services" id="diensten">
         <div class="section-heading" data-reveal>
           <p class="eyebrow">Services</p>
-          <h2>Everything for a website that is ready to convince customers.</h2>
+          <h2>Websites, backends, logos, and app concepts for entrepreneurs who want to stand professionally online.</h2>
         </div>
 
         <div class="service-grid">
@@ -280,6 +281,51 @@
         </div>
       </section>
 
+      <section class="section packages" id="packages">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">Packages</p>
+          <h2>Clear options make it easier to choose the right next step.</h2>
+        </div>
+
+        <div class="package-grid">
+          <article class="package-card glass-card" data-reveal>
+            <span>01</span>
+            <h3>Starter website</h3>
+            <p>A focused one-page website for a clear offer, service, or personal brand.</p>
+            <ul>
+              <li>Premium one-page design</li>
+              <li>Mobile responsive layout</li>
+              <li>Contact request form</li>
+            </ul>
+            <a class="button button-secondary premium-button" href="#contact">Ask for starter</a>
+          </article>
+
+          <article class="package-card glass-card featured-package" data-reveal>
+            <span>02</span>
+            <h3>Business website</h3>
+            <p>A stronger multi-section or multi-page website built for trust, clarity, and conversion.</p>
+            <ul>
+              <li>Home, services, about, and contact flow</li>
+              <li>StudioLab-style visual direction</li>
+              <li>SEO basics and fast loading</li>
+            </ul>
+            <a class="button button-primary premium-button" href="#studio-lab">Build my vibe</a>
+          </article>
+
+          <article class="package-card glass-card" data-reveal>
+            <span>03</span>
+            <h3>Custom system / backend</h3>
+            <p>For businesses that need more than a website: dashboards, workflows, forms, and data.</p>
+            <ul>
+              <li>Backend or admin system</li>
+              <li>Custom workflows and automations</li>
+              <li>Scalable structure for growth</li>
+            </ul>
+            <a class="button button-secondary premium-button" href="#contact">Discuss system</a>
+          </article>
+        </div>
+      </section>
+
       <section class="section studio-lab" id="studio-lab" data-reveal>
         <div class="studio-copy">
           <p class="eyebrow">StudioLab</p>
@@ -292,10 +338,19 @@
           </p>
 
           <div class="lab-kicker">Build your digital vibe.</div>
+          <p class="studio-helper-copy">
+            Choose your business type, style, and goal. StudioLab automatically creates a website direction
+            and project brief for you.
+          </p>
+
+          <button class="button button-primary premium-button generate-direction-button" type="button" id="generateDirectionButton">
+            Generate my website direction
+          </button>
 
           <div class="lab-controls" aria-label="StudioLab choices">
             <div class="lab-group">
-              <p class="lab-group-label">Who are you?</p>
+              <span class="step-badge">Step 1</span>
+              <p class="lab-group-label">Choose your business</p>
 
               <div class="lab-options">
                 <button class="lab-pill is-active" type="button" data-lab-choice="audience" data-value="creator">Creator</button>
@@ -307,8 +362,27 @@
               </div>
             </div>
 
+            <div class="lab-group lab-preset-group">
+              <span class="step-badge">Step 1B</span>
+              <p class="lab-group-label">Client type presets</p>
+
+              <div class="lab-options">
+                <button class="lab-pill preset-pill" type="button" data-studio-preset="Restaurant">Restaurant</button>
+                <button class="lab-pill preset-pill" type="button" data-studio-preset="Barbershop">Barbershop</button>
+                <button class="lab-pill preset-pill" type="button" data-studio-preset="Coach">Coach</button>
+                <button class="lab-pill preset-pill" type="button" data-studio-preset="Real estate">Real estate</button>
+                <button class="lab-pill preset-pill" type="button" data-studio-preset="Mosque / Foundation">Mosque / Foundation</button>
+                <button class="lab-pill preset-pill" type="button" data-studio-preset="Fitness">Fitness</button>
+                <button class="lab-pill preset-pill" type="button" data-studio-preset="E-commerce">E-commerce</button>
+                <button class="lab-pill preset-pill" type="button" data-studio-preset="Cleaning company">Cleaning company</button>
+                <button class="lab-pill preset-pill" type="button" data-studio-preset="Car company">Car company</button>
+                <button class="lab-pill preset-pill" type="button" data-studio-preset="Personal trainer">Personal trainer</button>
+              </div>
+            </div>
+
             <div class="lab-group">
-              <p class="lab-group-label">Which vibe do you want?</p>
+              <span class="step-badge">Step 2</span>
+              <p class="lab-group-label">Choose your vibe</p>
 
               <div class="lab-options">
                 <button class="lab-pill is-active" type="button" data-lab-choice="style" data-value="dark mode">Dark mode</button>
@@ -323,7 +397,8 @@
             </div>
 
             <div class="lab-group">
-              <p class="lab-group-label">What do you want to build?</p>
+              <span class="step-badge">Step 3</span>
+              <p class="lab-group-label">Choose your build</p>
 
               <div class="lab-options">
                 <button class="lab-pill is-active" type="button" data-lab-choice="build" data-value="portfolio">Portfolio</button>
@@ -346,10 +421,22 @@
               Activate live build mode
             </button>
           </div>
+
+          <div class="device-switcher glass-card" aria-label="Preview device">
+            <span>Preview device</span>
+            <button class="is-active" type="button" data-studio-device="desktop">Desktop</button>
+            <button type="button" data-studio-device="tablet">Tablet</button>
+            <button type="button" data-studio-device="mobile">Mobile</button>
+          </div>
         </div>
 
         <div class="live-visual glass-card" aria-live="polite">
           <div class="live-panel">
+            <div class="generated-step-label">
+              <span>Step 4</span>
+              <strong>Get your generated direction</strong>
+            </div>
+
             <div class="live-top">
               <span></span>
               <span></span>
@@ -403,6 +490,36 @@
 
               <div class="lab-wave" aria-hidden="true"></div>
 
+              <article class="generated-site-preview" id="generatedSitePreview" data-device="desktop" aria-label="Generated website preview">
+                <div class="generated-browser-top" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <strong id="generatedDomain">studio-preview.io</strong>
+                </div>
+
+                <div class="generated-hero">
+                  <p id="generatedEyebrow">Creator portfolio</p>
+                  <h3 id="generatedHeroTitle">A cinematic digital home for your next move.</h3>
+                  <p id="generatedSubtitle">Bold visuals, proof, and a direct route to contact.</p>
+                  <button type="button" id="generatedCta">Start the project</button>
+                </div>
+
+                <div class="generated-proof-grid" aria-label="Generated proof cards">
+                  <span id="generatedCardOne">Visual direction</span>
+                  <span id="generatedCardTwo">Conversion path</span>
+                  <span id="generatedCardThree">Mobile-ready flow</span>
+                </div>
+
+                <div class="generated-mockup-area" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+
+                <div class="generated-route" id="generatedRoute">Intro -> proof -> offer -> contact</div>
+              </article>
+
               <div class="figma-canvas" aria-label="Live design canvas preview">
                 <div class="canvas-grid" aria-hidden="true"></div>
                 <div class="design-frame frame-hero"><span>Hero</span></div>
@@ -419,8 +536,70 @@
               <ul>
                 <li><strong>Brand feel:</strong> <span id="briefFeel">Cinematic, bold, visual</span></li>
                 <li><strong>Best layout:</strong> <span id="briefLayout">Portfolio with fullscreen sections</span></li>
-                <li><strong>Conversion route:</strong> <span id="briefRoute">Intro → work → proof → contact</span></li>
+                <li><strong>Conversion route:</strong> <span id="briefRoute">Intro -> work -> proof -> contact</span></li>
               </ul>
+            </div>
+
+            <div class="brand-dna-panel glass-card">
+              <div class="panel-heading">
+                <p class="eyebrow">Brand DNA</p>
+                <h3>Live personality meters</h3>
+              </div>
+
+              <div class="dna-meter" data-dna-meter="luxury"><span>Luxury</span><i><b></b></i><strong>0%</strong></div>
+              <div class="dna-meter" data-dna-meter="trust"><span>Trust</span><i><b></b></i><strong>0%</strong></div>
+              <div class="dna-meter" data-dna-meter="motion"><span>Motion</span><i><b></b></i><strong>0%</strong></div>
+              <div class="dna-meter" data-dna-meter="boldness"><span>Boldness</span><i><b></b></i><strong>0%</strong></div>
+              <div class="dna-meter" data-dna-meter="speed"><span>Speed</span><i><b></b></i><strong>0%</strong></div>
+              <div class="dna-meter" data-dna-meter="conversion"><span>Conversion</span><i><b></b></i><strong>0%</strong></div>
+            </div>
+
+            <div class="build-console glass-card" aria-live="polite">
+              <div class="panel-heading">
+                <p class="eyebrow">AI build console</p>
+                <h3>Generating your concept</h3>
+              </div>
+
+              <ol id="buildConsole">
+                <li>Analyzing audience...</li>
+                <li>Locking visual style...</li>
+                <li>Generating hero section...</li>
+                <li>Building conversion route...</li>
+                <li>Optimizing mobile preview...</li>
+                <li>Ready to launch.</li>
+              </ol>
+            </div>
+
+            <div class="recommendation-card glass-card">
+              <div class="panel-heading">
+                <p class="eyebrow">Recommended package</p>
+                <h3 id="recommendedPackage">Starter website</h3>
+              </div>
+
+              <dl>
+                <div>
+                  <dt>Budget level</dt>
+                  <dd id="recommendedBudget">Starter</dd>
+                </div>
+                <div>
+                  <dt>Timeline</dt>
+                  <dd id="recommendedTimeline">3-5 days</dd>
+                </div>
+                <div>
+                  <dt>Best for</dt>
+                  <dd id="recommendedBestFor">Focused launch</dd>
+                </div>
+              </dl>
+
+              <p id="recommendedReason">This package fits a focused first version with a direct contact flow.</p>
+            </div>
+
+            <div class="build-timeline glass-card" aria-label="Build timeline">
+              <span class="is-active">Wireframe</span>
+              <span>Visual direction</span>
+              <span>Content flow</span>
+              <span>Responsive design</span>
+              <span>Launch-ready</span>
             </div>
 
             <div class="lab-result">
@@ -428,11 +607,76 @@
               <p id="labText">A dark-mode portfolio for a creator with cinematic scroll, big visuals, and a bold intro.</p>
             </div>
 
-            <a class="button button-primary premium-button lab-build-button" id="labBuildButton" href="#contact">
-              Build this for me
-            </a>
+            <div class="before-after-lab glass-card">
+              <div class="comparison-head">
+                <div>
+                  <p class="eyebrow">Before / After</p>
+                  <h3>Slide from generic to premium.</h3>
+                </div>
+
+                <strong id="comparisonValue">68%</strong>
+              </div>
+
+              <div class="comparison-frame" style="--after-width: 68%">
+                <div class="comparison-side comparison-before">
+                  <span>Before</span>
+                  <strong>Plain page</strong>
+                  <small>Flat layout, weak CTA, little trust.</small>
+                </div>
+
+                <div class="comparison-side comparison-after">
+                  <span>After</span>
+                  <strong>AR Studio vibe</strong>
+                  <small>Motion, proof, sharp sections, direct request.</small>
+                </div>
+
+                <div class="comparison-handle" aria-hidden="true"></div>
+              </div>
+
+              <label class="comparison-range">
+                Transform intensity
+                <input type="range" id="comparisonRange" min="12" max="92" value="68" />
+              </label>
+            </div>
+
+            <div class="export-flow glass-card">
+              <span>Export my vibe</span>
+              <p id="exportSummary">Dark mode portfolio for a creator, ready to send as a request.</p>
+
+              <div class="export-actions">
+                <a class="button button-primary premium-button lab-build-button" id="labBuildButton" href="#contact">
+                  Put this brief in the contact form
+                </a>
+
+                <button class="button button-secondary premium-button" type="button" id="exportVibeButton">
+                  Generate my website direction
+                </button>
+
+                <button class="button button-secondary premium-button" type="button" id="copyBriefButton">
+                  Copy project brief
+                </button>
+
+                <button class="button button-secondary premium-button" type="button" id="whatsappBriefButton">
+                  Send this concept on WhatsApp
+                </button>
+
+                <button class="button button-secondary premium-button" type="button" id="putInFormButton">
+                  Put this brief in the contact form
+                </button>
+              </div>
+
+              <p class="brief-action-status" id="briefActionStatus" role="status" aria-live="polite"></p>
+            </div>
           </div>
         </div>
+      </section>
+
+      <section class="trust-strip section" aria-label="AR Studio trust points" data-reveal>
+        <span>Mobile-first</span>
+        <span>Fast loading</span>
+        <span>WhatsApp-ready</span>
+        <span>Clear request flow</span>
+        <span>Custom design</span>
       </section>
 
       <section class="section showcase" data-reveal>
@@ -585,36 +829,33 @@
       <strong>Message me</strong>
     </a>
 
-   <aside class="theme-dock mega-theme-dock glass-card" aria-label="Choose theme">
-  <div class="theme-dock-head">
-    <span>Theme Reactor</span>
-    <strong id="activeThemeName">Amber</strong>
-  </div>
+    <aside class="theme-dock mega-theme-dock glass-card" aria-label="Live mode theme reactor">
+      <div class="theme-dock-head">
+        <span>Live themes</span>
+        <strong id="activeThemeName">Amber</strong>
+      </div>
 
-  <div class="theme-dot-grid">
-    <button class="theme-dot theme-amber is-active" type="button" data-theme-choice="amber" aria-label="Amber theme"></button>
-    <button class="theme-dot theme-cyber" type="button" data-theme-choice="cyber" aria-label="Cyber theme"></button>
-    <button class="theme-dot theme-luxe" type="button" data-theme-choice="luxe" aria-label="Luxe theme"></button>
-    <button class="theme-dot theme-neon" type="button" data-theme-choice="neon" aria-label="Neon theme"></button>
-    <button class="theme-dot theme-glacier" type="button" data-theme-choice="glacier" aria-label="Glacier theme"></button>
-    <button class="theme-dot theme-inferno" type="button" data-theme-choice="inferno" aria-label="Inferno theme"></button>
-    <button class="theme-dot theme-toxic" type="button" data-theme-choice="toxic" aria-label="Toxic theme"></button>
-    <button class="theme-dot theme-candy" type="button" data-theme-choice="candy" aria-label="Candy theme"></button>
-    <button class="theme-dot theme-matrix" type="button" data-theme-choice="matrix" aria-label="Matrix theme"></button>
-    <button class="theme-dot theme-midnight" type="button" data-theme-choice="midnight" aria-label="Midnight theme"></button>
-    <button class="theme-dot theme-royal" type="button" data-theme-choice="royal" aria-label="Royal theme"></button>
-    <button class="theme-dot theme-mono" type="button" data-theme-choice="mono" aria-label="Mono theme"></button>
-  </div>
+      <div class="theme-dot-grid" aria-label="Choose a live theme">
+        <button class="theme-dot theme-amber is-active" type="button" data-theme-choice="amber" aria-label="Amber theme"></button>
+        <button class="theme-dot theme-cyber" type="button" data-theme-choice="cyber" aria-label="Cyber theme"></button>
+        <button class="theme-dot theme-luxe" type="button" data-theme-choice="luxe" aria-label="Luxe theme"></button>
+        <button class="theme-dot theme-neon" type="button" data-theme-choice="neon" aria-label="Neon theme"></button>
+        <button class="theme-dot theme-glacier" type="button" data-theme-choice="glacier" aria-label="Glacier theme"></button>
+        <button class="theme-dot theme-inferno" type="button" data-theme-choice="inferno" aria-label="Inferno theme"></button>
+        <button class="theme-dot theme-toxic" type="button" data-theme-choice="toxic" aria-label="Toxic theme"></button>
+        <button class="theme-dot theme-candy" type="button" data-theme-choice="candy" aria-label="Candy theme"></button>
+        <button class="theme-dot theme-matrix" type="button" data-theme-choice="matrix" aria-label="Matrix theme"></button>
+        <button class="theme-dot theme-midnight" type="button" data-theme-choice="midnight" aria-label="Midnight theme"></button>
+        <button class="theme-dot theme-royal" type="button" data-theme-choice="royal" aria-label="Royal theme"></button>
+        <button class="theme-dot theme-mono" type="button" data-theme-choice="mono" aria-label="Mono theme"></button>
+      </div>
 
-  <div class="theme-actions">
-    <button type="button" id="randomTheme">Random</button>
-    <button type="button" id="cycleTheme">Cycle</button>
-    <button type="button" id="insaneMode">Insane</button>
-  </div>
-</aside>
-
-<div class="theme-reactor-burst" aria-hidden="true"></div>
-<div class="glitch-layer" aria-hidden="true"></div>
+      <div class="theme-actions" aria-label="Theme actions">
+        <button type="button" id="randomTheme">Random</button>
+        <button type="button" id="cycleTheme">Cycle</button>
+        <button type="button" id="insaneMode">Insane</button>
+      </div>
+    </aside>
 
     <div class="build-scanner" aria-hidden="true"></div>
 
@@ -625,7 +866,7 @@
           <span>Live build mode</span>
         </div>
 
-        <button type="button" id="closeStudioToolbar" aria-label="Close StudioLab controls">×</button>
+        <button type="button" id="closeStudioToolbar" aria-label="Close StudioLab controls">x</button>
       </div>
 
       <label>

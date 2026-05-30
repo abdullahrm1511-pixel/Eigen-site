@@ -748,6 +748,8 @@ const getBrandDna = () => {
     dna.conversion += 7;
   }
 
+  dna.luxury = Number(studioAllOutState.beforeAfter) || dna.luxury;
+
   const warmupDna = {
     luxury: 34,
     trust: 42,

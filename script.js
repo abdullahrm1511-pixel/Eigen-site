@@ -952,6 +952,16 @@ const showBriefStatus = (message) => {
   }
 };
 
+const focusGeneratedPreview = () => {
+  allOutEls.generatedPreview?.classList.remove("is-highlighted");
+  void allOutEls.generatedPreview?.offsetWidth;
+  allOutEls.generatedPreview?.classList.add("is-highlighted");
+  allOutEls.generatedPreview?.scrollIntoView({
+    behavior: prefersReducedMotion ? "auto" : "smooth",
+    block: "center",
+  });
+};
+
 const generateStudioDirection = () => {
   studioInteractionStarted = true;
   studioAllOutState.touched.audience = true;
@@ -961,13 +971,7 @@ const generateStudioDirection = () => {
   updateAllOutStudioLab();
   syncStudioRequest();
 
-  allOutEls.generatedPreview?.classList.remove("is-highlighted");
-  void allOutEls.generatedPreview?.offsetWidth;
-  allOutEls.generatedPreview?.classList.add("is-highlighted");
-  allOutEls.generatedPreview?.scrollIntoView({
-    behavior: prefersReducedMotion ? "auto" : "smooth",
-    block: "center",
-  });
+  focusGeneratedPreview();
 
   showBriefStatus("Website direction generated. The project brief is ready.");
 };
@@ -1027,6 +1031,7 @@ allOutEls.deviceButtons.forEach((button) => {
   button.addEventListener("click", () => {
     studioAllOutState.device = button.dataset.studioDevice || "desktop";
     updateAllOutStudioLab();
+    focusGeneratedPreview();
   });
 });
 

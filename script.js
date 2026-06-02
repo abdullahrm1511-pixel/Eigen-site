@@ -409,7 +409,6 @@ const syncStudioRequest = () => {
 const studioRefresh = () => {
   updateGlobalStudioLook();
   updateStudioBrief();
-  triggerSiteRebuild();
 };
 
 document.querySelectorAll("[data-lab-choice]").forEach((button) => {

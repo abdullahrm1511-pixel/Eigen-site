@@ -1,7 +1,6 @@
 const OWNER_EMAIL = "arstudiowebdesign@gmail.com";
 const WHATSAPP_NUMBER = "31648363929";
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
 const revealItems = document.querySelectorAll("[data-reveal]");
 
@@ -23,40 +22,10 @@ if (prefersReducedMotion || !("IntersectionObserver" in window)) {
   revealItems.forEach((item) => observer.observe(item));
 }
 
-const interactiveCards = document.querySelectorAll(".step-card, .service-card, .design-board, .live-panel");
-
-if (!prefersReducedMotion && hasFinePointer) {
-  interactiveCards.forEach((card) => {
-    card.classList.add("tilt-card");
-
-    card.addEventListener("pointermove", (event) => {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-
-      card.style.setProperty("--tilt-x", `${x * 5}deg`);
-      card.style.setProperty("--tilt-y", `${y * -5}deg`);
-    });
-
-    card.addEventListener("pointerleave", () => {
-      card.style.setProperty("--tilt-x", "0deg");
-      card.style.setProperty("--tilt-y", "0deg");
-    });
-  });
-}
-
-if (!prefersReducedMotion && hasFinePointer) {
-  document.addEventListener("pointermove", (event) => {
-    document.body.style.setProperty("--cursor-x", `${event.clientX}px`);
-    document.body.style.setProperty("--cursor-y", `${event.clientY}px`);
-  });
-}
-
 const form = document.querySelector("#requestForm");
 const status = document.querySelector("#formStatus");
 const formSubmitFrame = document.querySelector('iframe[name="formSubmitFrame"]');
 const whatsappFloat = document.querySelector(".whatsapp-float");
-const magneticButtons = document.querySelectorAll(".button, .header-cta, .whatsapp-float");
 const themeButtons = document.querySelectorAll("[data-theme-choice]");
 const labButtons = document.querySelectorAll("[data-lab-choice]");
 const liveVisual = document.querySelector(".live-visual");
@@ -165,22 +134,6 @@ const updateScrollProgress = () => {
 window.addEventListener("scroll", updateScrollProgress, { passive: true });
 updateScrollProgress();
 
-if (!prefersReducedMotion && hasFinePointer) {
-  magneticButtons.forEach((button) => {
-    button.addEventListener("pointermove", (event) => {
-      const rect = button.getBoundingClientRect();
-      const x = event.clientX - rect.left - rect.width / 2;
-      const y = event.clientY - rect.top - rect.height / 2;
-
-      button.style.transform = `translate(${x * 0.12}px, ${y * 0.18}px)`;
-    });
-
-    button.addEventListener("pointerleave", () => {
-      button.style.transform = "";
-    });
-  });
-}
-
 const setActiveLabButton = (group, value) => {
   labButtons.forEach((button) => {
     if (button.dataset.labChoice === group) {
@@ -238,18 +191,6 @@ surpriseLab?.addEventListener("click", () => {
 });
 
 updateLabPreview();
-
-if (!prefersReducedMotion && hasFinePointer) {
-  document.addEventListener("click", (event) => {
-    const spark = document.createElement("span");
-
-    spark.className = "click-spark";
-    spark.style.left = `${event.clientX}px`;
-    spark.style.top = `${event.clientY}px`;
-    document.body.appendChild(spark);
-    window.setTimeout(() => spark.remove(), 560);
-  });
-}
 
 const buildMessage = (data) =>
   [
@@ -323,6 +264,7 @@ const briefLayout = document.querySelector("#briefLayout");
 const briefRoute = document.querySelector("#briefRoute");
 
 let studioInteractionStarted = false;
+let siteEffectTimer = null;
 
 const studioHeroCopies = {
   business: {
@@ -363,6 +305,27 @@ const triggerSiteRebuild = () => {
   document.body.classList.remove("is-rebuilding-site");
   void document.body.offsetWidth;
   document.body.classList.add("is-rebuilding-site");
+};
+
+const runSiteEffect = (effect) => {
+  const effectClasses = ["site-effect-clean", "site-effect-editorial", "site-effect-chaos"];
+
+  effectClasses.forEach((className) => document.body.classList.remove(className));
+  if (siteEffectTimer) {
+    window.clearTimeout(siteEffectTimer);
+  }
+
+  if (typeof prefersReducedMotion !== "undefined" && prefersReducedMotion) {
+    triggerSiteRebuild();
+    return;
+  }
+
+  void document.body.offsetWidth;
+  document.body.classList.add(`site-effect-${effect}`);
+
+  siteEffectTimer = window.setTimeout(() => {
+    document.body.classList.remove(`site-effect-${effect}`);
+  }, effect === "chaos" ? 2000 : 1500);
 };
 
 const updateGlobalStudioLook = () => {
@@ -496,13 +459,14 @@ glowRange?.addEventListener("input", () => {
 
 layoutButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    document.body.dataset.layoutMode = button.dataset.layoutMode;
+    delete document.body.dataset.layoutMode;
 
     layoutButtons.forEach((item) => {
       item.classList.toggle("is-active", item === button);
     });
 
     triggerSiteRebuild();
+    runSiteEffect(button.dataset.layoutMode);
   });
 });
 

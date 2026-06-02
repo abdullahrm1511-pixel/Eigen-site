@@ -114,7 +114,7 @@ body::before {
 .animated-background {
   z-index: -1;
   background:
-    radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 24%), rgba(216, 137, 47, 0.18), transparent 270px),
+    radial-gradient(circle at 72% 18%, rgba(216, 137, 47, 0.16), transparent 280px),
     linear-gradient(135deg, rgba(21, 72, 67, 0.42), transparent 34%),
     linear-gradient(180deg, #070b0d 0%, #0a1113 52%, #10120f 100%);
 }
@@ -780,10 +780,6 @@ h3 {
     transform 180ms ease,
     box-shadow 180ms ease,
     border-color 180ms ease;
-}
-
-.tilt-card {
-  transform: perspective(900px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translateY(var(--lift, 0));
 }
 
 .step-card:hover,
@@ -1991,19 +1987,6 @@ body.studio-mode .theme-dock {
   background: linear-gradient(135deg, #4a1831, #e6c16a);
 }
 
-.click-spark {
-  position: fixed;
-  z-index: 90;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: var(--glow);
-  pointer-events: none;
-  transform: translate(-50%, -50%) scale(0);
-  animation: sparkPop 560ms ease-out forwards;
-}
-
 .js [data-reveal] {
   opacity: 0;
   transform: translateY(30px) scale(0.98);
@@ -2015,10 +1998,6 @@ body.studio-mode .theme-dock {
 .js [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0) scale(1);
-}
-
-.js [data-reveal].is-visible.tilt-card {
-  transform: perspective(900px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translateY(var(--lift, 0));
 }
 
 @keyframes headerDrop {
@@ -2298,20 +2277,6 @@ body.studio-mode .theme-dock {
   }
   92% {
     transform: translateX(2px);
-  }
-}
-
-@keyframes sparkPop {
-  0% {
-    opacity: 0.9;
-    transform: translate(-50%, -50%) scale(0);
-  }
-  70% {
-    opacity: 0.45;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(8);
   }
 }
 
@@ -2676,7 +2641,7 @@ body[data-vibe="bold"] {
 
 body.studio-mode .animated-background {
   background:
-    radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 24%), color-mix(in srgb, var(--accent) 32%, transparent), transparent 320px),
+    radial-gradient(circle at 72% 20%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 320px),
     radial-gradient(circle at 18% 78%, color-mix(in srgb, var(--accent-dark) 18%, transparent), transparent 360px),
     linear-gradient(135deg, color-mix(in srgb, var(--secondary) 44%, transparent), transparent 34%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 58%, #050607 100%);
@@ -3553,6 +3518,55 @@ body.studio-mode .studio-toolbar {
   backdrop-filter: blur(12px);
 }
 
+/* Performance smoothing */
+.ambient,
+.hero-image,
+.browser-shell,
+.browser-window,
+.floating-chip,
+.whatsapp-float,
+.live-orbit,
+.lab-chaos span,
+.lab-signal span,
+.lab-hud,
+.lab-wave,
+.live-logo,
+.live-lines span,
+.live-grid span,
+.live-code code,
+.design-frame,
+.figma-canvas,
+.canvas-cursor,
+.generated-mockup-area span {
+  animation: none;
+}
+
+.ambient {
+  opacity: 0.2;
+  filter: blur(46px);
+}
+
+.live-stage::before,
+.live-stage::after {
+  animation: none;
+}
+
+.live-stage::after {
+  opacity: 0.08;
+}
+
+.lab-chaos {
+  opacity: 0.35;
+}
+
+.motion-track {
+  animation-duration: 46s;
+}
+
+.whatsapp-float {
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.26);
+}
+
 body[data-layout-mode="editorial"] .service-grid {
   grid-template-columns: 1.16fr 0.84fr 1fr;
 }
@@ -3579,6 +3593,44 @@ body[data-layout-mode="clean"] .noise-overlay {
 body[data-layout-mode="clean"] .service-card,
 body[data-layout-mode="clean"] .step-card {
   border-radius: 28px;
+}
+
+body.site-effect-clean .glass-card,
+body.site-effect-clean .button,
+body.site-effect-clean .brand-mark {
+  animation: polishPop 1500ms ease both;
+}
+
+body.site-effect-editorial .hero-image,
+body.site-effect-editorial .animated-background,
+body.site-effect-editorial .glass-card {
+  animation: spotlightPulse 1500ms ease both;
+}
+
+body.site-effect-editorial .build-scanner {
+  animation: siteScan 1100ms ease both;
+}
+
+body.site-effect-chaos main,
+body.site-effect-chaos .site-header,
+body.site-effect-chaos .whatsapp-float,
+body.site-effect-chaos .theme-dock,
+body.site-effect-chaos .studio-toolbar {
+  animation: siteGlitchShake 2000ms steps(2, end) both;
+}
+
+body.site-effect-chaos .glitch-layer {
+  opacity: 0.32;
+  animation: glitchLayerMove 120ms steps(2, end) infinite;
+}
+
+body.site-effect-chaos .animated-background {
+  animation: chaosColorFlash 2000ms steps(3, end) both;
+}
+
+body.site-effect-chaos .glass-card,
+body.site-effect-chaos .button-primary {
+  animation: chaosGlowPunch 2000ms steps(2, end) both;
 }
 
 @keyframes studioButtonSweep {
@@ -3624,6 +3676,100 @@ body[data-layout-mode="clean"] .step-card {
   100% {
     transform: translateY(120%);
     opacity: 0;
+  }
+}
+
+@keyframes polishPop {
+  0%,
+  100% {
+    filter: saturate(1);
+    transform: translateY(0) scale(1);
+  }
+
+  38% {
+    filter: saturate(1.18) brightness(1.06);
+    transform: translateY(-2px) scale(1.01);
+  }
+}
+
+@keyframes spotlightPulse {
+  0%,
+  100% {
+    filter: saturate(1) brightness(1);
+  }
+
+  42% {
+    filter: saturate(1.22) brightness(1.14) contrast(1.06);
+  }
+}
+
+@keyframes siteGlitchShake {
+  0%,
+  100% {
+    filter: none;
+    transform: translate(0, 0);
+  }
+
+  8% {
+    filter: hue-rotate(18deg) contrast(1.16);
+    transform: translate(6px, -3px);
+  }
+
+  16% {
+    transform: translate(-7px, 4px) skewX(-1deg);
+  }
+
+  28% {
+    filter: hue-rotate(-18deg) saturate(1.35);
+    transform: translate(5px, 2px) skewX(1deg);
+  }
+
+  42% {
+    transform: translate(-4px, -2px);
+  }
+
+  58% {
+    filter: contrast(1.22) saturate(1.45);
+    transform: translate(8px, 0);
+  }
+
+  72% {
+    transform: translate(-6px, 3px);
+  }
+
+  86% {
+    filter: hue-rotate(8deg) contrast(1.08);
+    transform: translate(3px, -2px);
+  }
+}
+
+@keyframes chaosColorFlash {
+  0%,
+  100% {
+    filter: hue-rotate(0deg) saturate(1);
+  }
+
+  30% {
+    filter: hue-rotate(54deg) saturate(1.5) contrast(1.12);
+  }
+
+  64% {
+    filter: hue-rotate(-42deg) saturate(1.65) contrast(1.18);
+  }
+}
+
+@keyframes chaosGlowPunch {
+  0%,
+  100% {
+    box-shadow: var(--shadow);
+  }
+
+  34% {
+    box-shadow: var(--shadow), 0 0 42px color-mix(in srgb, var(--accent) 42%, transparent);
+  }
+
+  68% {
+    box-shadow: var(--shadow), 0 0 64px color-mix(in srgb, var(--accent-dark) 50%, transparent);
   }
 }
 
@@ -3807,7 +3953,23 @@ body[data-layout-mode="clean"] .step-card {
   .canvas-cursor,
   .generated-mockup-area span,
   body.is-rebuilding-site .build-scanner,
-  .generated-site-preview.is-highlighted {
+  .generated-site-preview.is-highlighted,
+  body.site-effect-clean .glass-card,
+  body.site-effect-clean .button,
+  body.site-effect-clean .brand-mark,
+  body.site-effect-editorial .hero-image,
+  body.site-effect-editorial .animated-background,
+  body.site-effect-editorial .glass-card,
+  body.site-effect-editorial .build-scanner,
+  body.site-effect-chaos main,
+  body.site-effect-chaos .site-header,
+  body.site-effect-chaos .whatsapp-float,
+  body.site-effect-chaos .theme-dock,
+  body.site-effect-chaos .studio-toolbar,
+  body.site-effect-chaos .glitch-layer,
+  body.site-effect-chaos .animated-background,
+  body.site-effect-chaos .glass-card,
+  body.site-effect-chaos .button-primary {
     animation: none !important;
   }
 
@@ -4115,7 +4277,7 @@ body[data-theme="mono"] {
 /* Theme affects whole site harder */
 body[data-theme] .animated-background {
   background:
-    radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 24%), color-mix(in srgb, var(--accent) 24%, transparent), transparent 300px),
+    radial-gradient(circle at 72% 18%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 300px),
     radial-gradient(circle at 20% 84%, color-mix(in srgb, var(--accent-dark) 16%, transparent), transparent 340px),
     radial-gradient(circle at 86% 12%, color-mix(in srgb, var(--secondary) 46%, transparent), transparent 320px),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 56%, #050505 100%);
